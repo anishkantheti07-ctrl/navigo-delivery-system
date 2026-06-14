@@ -13,7 +13,7 @@ import pandas as pd
 
 # ── PAGE CONFIG ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="NAVIGO — Campus Delivery",
+    page_title="NAVIGO — The future of Last-mile logistics",
     page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -578,45 +578,80 @@ def page_tracking():
         line=dict(color="#22c55e",width=12),
         name="Done", hoverinfo="skip",
     ))
- 
+
+    fig.add_trace(
+        go.Scatter(
+            x=WP_X,
+            y=WP_Y,
+            mode="lines",
+            line=dict(
+                color="#22c55e",
+                width=6
+            ),
+            showlegend=False,
+            hoverinfo="skip"
+    )
+)
+
     # Building markers
-    bld_colors = {
-        "🏠 Hostel A":"#3b82f6",
-        "🏠 Hostel B":"#3b82f6",
-        "🍽 Cafeteria":"#f59e0b",
-        "🏫 Academic Block":"#06b6d4",
-        "📚 Library":"#8b5cf6",
-        "🏥 Medical Centre":"#ef4444",
-        "⚡ Base Station":"#22c55e",
+
+    building_icons = {
+        "Hostel A":"🏠",
+        "Hostel B":"🏠",
+        "Cafeteria":"🍽",
+        "Academic Block":"🏫",
+        "Library":"📚",
+        "Medical Centre":"🏥",
+        "Base Station":"⚡",
     }
+
     for bname,(bx,by) in BUILDINGS.items():
-        col = bld_colors.get(bname,"#64748b")
-        fig.add_trace(go.Scatter(
-            x=[bx], y=[by], mode="markers+text",
-            marker=dict(size=40, color=col, symbol="square",
-                        line=dict(color="white",width=2.5)),
-            text=[bname],
-            textposition="top center",
-            textfont=dict(size=16, color="#1e293b", family="Arial Black"),
-            name=bname, hovertemplate=f"<b>{bname}</b><extra></extra>",
-        ))
+
+        fig.add_trace(
+            go.Scatter(
+                x=[bx],
+                y=[by],
+                mode="markers+text",
+                marker=dict(
+                    size=22,
+                    color="white",
+                    line=dict(color="#2563eb", width=3)
+                ),
+                text=[building_icons.get(bname,"📍")],
+                textposition="middle center",
+                textfont=dict(size=18),
+                showlegend=False,
+                hovertemplate=f"<b>{bname}</b><extra></extra>"
+        )
+    )
+
+    fig.add_annotation(
+        x=bx,
+        y=by-0.05,
+        text=bname,
+        showarrow=False,
+        font=dict(size=12,color="#0f172a")
+    )
  
-    # Turbo marker with glow ring
-    fig.add_trace(go.Scatter(
-        x=[tx], y=[ty], mode="markers",
-        marker=dict(size=70, color=BLUE, symbol="circle",
-                    opacity=0.18, line=dict(color=BLUE,width=0)),
-        hoverinfo="skip", showlegend=False,
-    ))
-    fig.add_trace(go.Scatter(
-        x=[tx], y=[ty], mode="markers+text",
-        marker=dict(size=36, color=BLUE, symbol="circle",
-                    line=dict(color="white",width=3)),
-        text=["🚚"],
-        textposition="middle center",
-        textfont=dict(size=14),
-        name="TURBO", hovertemplate="<b>TURBO</b><br>Live Location<extra></extra>",
-    ))
+    # TURBO marker
+
+    fig.add_trace(
+        go.Scatter(
+            x=[tx],
+            y=[ty],
+            mode="markers+text",
+            marker=dict(
+                size=30,
+                color="#ef4444",
+                line=dict(color="white",width=3)
+            ),
+            text=["🚚"],
+            textposition="middle center",
+            textfont=dict(size=20),
+            showlegend=False,
+            hovertemplate="<b>TURBO</b><extra></extra>"
+    )
+)
  
     fig.update_layout(
         height=650,
@@ -628,6 +663,8 @@ def page_tracking():
         yaxis=dict(showgrid=False,zeroline=False,showticklabels=False,range=[-0.04,1.04]),
         hoverlabel=dict(bgcolor="white",font_size=13,font_color=NAVY),
     )
+    
+    st.write("Traces:", len(fig.data))
     st.plotly_chart(fig, use_container_width=True)
  
     # Controls
