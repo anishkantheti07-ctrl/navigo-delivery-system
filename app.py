@@ -1115,45 +1115,24 @@ def page_dashboard():
             st.progress(pct/100)
 
     # Delivery table
-    st.markdown(f"<h3 style='color:{NAVY};margin-top:20px;'>📋 Recent Delivery Records</h3>", unsafe_allow_html=True)
-    all_reqs = st.session_state.requests[:8]
+    data = []
+    for req in st.session_state.requests:
+        data.append({
+            "ID": req["id"],
+            "Customer": req["name"],
+            "Category": req["category"],
+            "Pickup": req["pickup"],
+            "Drop-off": req["dropoff"],
+            "Priority": req["priority"],
+            "Status": req["status"],
+            "Time": req["ts"]
+        })
 
-    if not all_reqs:
-        st.info("No delivery records yet.")
-    else:
-        hs = f"background:{NAVY};color:white;padding:12px 14px;font-size:13px;font-weight:700;text-align:left;"
-        rs = "padding:11px 14px;font-size:13px;border-bottom:1px solid #f1f5f9;color:#334155;"
-        rows = ""
-        for req in all_reqs:
-            bs = STATUS_BADGE.get(req["status"],"badge-info")
-            bp = PRIORITY_BADGE.get(req["priority"],"badge-success")
-            rows += f"""
-            <tr style="background:white;">
-                <td style="{rs}font-weight:800;color:{BLUE};">{req['id']}</td>
-                <td style="{rs}font-weight:600;color:{NAVY};">{req['name']}</td>
-                <td style="{rs}">{req['category']}</td>
-                <td style="{rs}">{req['pickup']}</td>
-                <td style="{rs}">{req['dropoff']}</td>
-                <td style="{rs}"><span class="{bp}">{req['priority']}</span></td>
-                <td style="{rs}"><span class="{bs}">{req['status']}</span></td>
-                <td style="{rs}color:#64748b;">{req['ts']}</td>
-            </tr>
-            """
-        st.markdown(f"""
-        <div style="overflow-x:auto;border-radius:16px;box-shadow:0 4px 20px rgba(10,37,64,.09);margin-top:8px;">
-        <table style="width:100%;border-collapse:collapse;background:white;border-radius:16px;overflow:hidden;">
-            <thead>
-                <tr>
-                    <th style="{hs}">ID</th><th style="{hs}">Customer</th>
-                    <th style="{hs}">Category</th><th style="{hs}">Pickup</th>
-                    <th style="{hs}">Drop-off</th><th style="{hs}">Priority</th>
-                    <th style="{hs}">Status</th><th style="{hs}">Time</th>
-                </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-        </table>
-        </div>
-        """, unsafe_allow_html=True)
+    st.dataframe(
+        pd.DataFrame(data),
+        use_container_width=True,
+        hide_index=True
+    )
 
 # ── ROUTER ────────────────────────────────────────────────────────────────────
 PAGE_MAP = {
