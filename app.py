@@ -140,9 +140,20 @@ st.markdown(f"""
         font-weight:600 !important;
     }}
 
-    .stSelectbox div[data-baseweb="select"] {{
-        color:#0f172a !important;
-    }}
+    /* Selectbox */
+.stSelectbox div[data-baseweb="select"] {{
+    background:white !important;
+    border:2px solid #e2e8f6 !important;
+    border-radius:12px !important;
+}}
+
+.stSelectbox div[data-baseweb="select"] * {{
+    color:#0f172a !important;
+}}
+
+.stSelectbox svg {{
+    fill:#0f172a !important;
+}}
 
 /* Placeholder */
     ::placeholder {{
