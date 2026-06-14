@@ -10,8 +10,8 @@ Streamlit Cloud:
     Push to GitHub → connect repo on share.streamlit.io
 """
 
-import streamlit as st
-import plotly.graph_objects as go
+import streamlit as st  # type: ignore
+import plotly.graph_objects as go  # type: ignore
 import datetime
 import random
 
