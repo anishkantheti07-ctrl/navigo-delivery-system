@@ -542,9 +542,9 @@ def page_tracking():
     # Green areas
     green_shapes = [
         dict(type="rect",x0=0.60,y0=0.55,x1=0.78,y1=0.72,
-             line=dict(color="#86efac",width=0),fillcolor="#dcfce788"),
+             line=dict(color="#86efac",width=0),fillcolor="rgba(220,252,231,0.53)"),
         dict(type="rect",x0=0.02,y0=0.02,x1=0.14,y1=0.30,
-             line=dict(color="#86efac",width=0),fillcolor="#dcfce788"),
+             line=dict(color="#86efac",width=0),fillcolor="rgba(220,252,231,0.53)"),
     ]
 
     fig = go.Figure()
