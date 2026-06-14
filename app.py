@@ -545,7 +545,6 @@ def page_tracking():
     st.markdown(f"<h3 style='color:{NAVY};'>🗺️ Campus Map — Live TURBO Location</h3>", unsafe_allow_html=True)
  
     tx, ty = turbo_pos(active)
-    st.write("Turbo:", tx, ty)
  
     # Road grid lines for visual depth
     road_shapes = []
@@ -638,41 +637,33 @@ def page_tracking():
     # Building markers
 
     building_icons = {
-        "Hostel A":"🏠",
-        "Hostel B":"🏠",
-        "Cafeteria":"🍽",
-        "Academic Block":"🏫",
-        "Library":"📚",
-        "Medical Centre":"🏥",
-        "Base Station":"⚡",
-    }
+    "Hostel A":"🏠",
+    "Hostel B":"🏠",
+    "Cafeteria":"🍽",
+    "Academic Block":"🏫",
+    "Library":"📚",
+    "Medical Centre":"🏥",
+    "Base Station":"⚡",
+}
 
-    for bname,(bx,by) in BUILDINGS.items():
-
-        fig.add_trace(
-            go.Scatter(
-                x=[bx],
-                y=[by],
-                mode="markers+text",
-                marker=dict(
-                    size=45,
-                    color="white",
-                    line=dict(color="#2563eb", width=3)
-                ),
-                text=[building_icons.get(bname,"📍")],
-                textposition="middle center",
-                textfont=dict(size=28),
-                showlegend=False,
-                hovertemplate=f"<b>{bname}</b><extra></extra>"
-            )
+    for bname, (bx, by) in BUILDINGS.items():
+        fig.add_annotation(
+            x=bx,
+            y=by,
+            text=building_icons.get(bname,"📍"),
+            showarrow=False,
+            font=dict(size=24)
         )
 
         fig.add_annotation(
-            x=tx,
-            y=ty,
-            text="🚚",
+            x=bx,
+            y=by-0.05,
+            text=bname,
             showarrow=False,
-            font=dict(size=35)
+            font=dict(
+                size=12,
+                color="#0f172a"
+            )
         )
     # TURBO marker
 
