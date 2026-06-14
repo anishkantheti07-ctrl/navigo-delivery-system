@@ -655,7 +655,7 @@ def page_tracking():
             marker=dict(
                 size=80,
                 color="red",
-                symbol="circle"
+                symbol="circle",
                 line=dict(color="black",width=5)
             ),
             showlegend=False
