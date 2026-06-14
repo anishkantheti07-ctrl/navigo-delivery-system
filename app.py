@@ -655,6 +655,18 @@ def page_tracking():
             font=dict(size=24)
         )
 
+        fig.add_trace(
+            go.Scatter(
+                x=[tx],
+                y=[ty],
+                mode="text",
+                text=["🚚"],
+                textfont=dict(size=28),
+                showlegend=False,
+                hoverinfo="skip"
+            )
+        )
+
         fig.add_annotation(
             x=bx,
             y=by-0.05,
@@ -665,6 +677,19 @@ def page_tracking():
                 color="#0f172a"
             )
         )
+
+        fig.add_trace(
+            go.Scatter(
+                x=[tx],
+                y=[ty],
+                mode="text",
+                text=["🚚"],
+                textfont=dict(size=28),
+                showlegend=False,
+                hoverinfo="skip"
+            )
+        )
+    
     # TURBO marker
 
     fig.add_trace(
