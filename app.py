@@ -122,19 +122,7 @@ st.markdown("""
     }
 
     .stSelectbox div[data-baseweb="select"] {
-        border-radius:12px !important;
-        border:2px solid #e2e8f6 !important;
-        background:#fafbff !important;
         color:#0f172a !important;
-    }
-
-/* Form Labels */
-    label,
-    .stTextInput label,
-    .stTextArea label,
-    .stSelectbox label {
-        color:#0f172a !important;
-        font-weight:700 !important;
     }
 
 /* Placeholder */
