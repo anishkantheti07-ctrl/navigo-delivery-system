@@ -622,17 +622,17 @@ def page_tracking():
                 textfont=dict(size=18),
                 showlegend=False,
                 hovertemplate=f"<b>{bname}</b><extra></extra>"
+            )
         )
-    )
 
-    fig.add_annotation(
-        x=bx,
-        y=by-0.05,
-        text=bname,
-        showarrow=False,
-        font=dict(size=12,color="#0f172a")
-    )
- 
+        fig.add_annotation(
+            x=bx,
+            y=by-0.05,
+            text=bname,
+            showarrow=False,
+            font=dict(size=12,color="#0f172a"
+            )
+        )
     # TURBO marker
 
     fig.add_trace(
@@ -650,8 +650,8 @@ def page_tracking():
             textfont=dict(size=20),
             showlegend=False,
             hovertemplate="<b>TURBO</b><extra></extra>"
+        )
     )
-)
  
     fig.update_layout(
         height=650,
