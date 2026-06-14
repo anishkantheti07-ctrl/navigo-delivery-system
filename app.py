@@ -258,7 +258,14 @@ STATUS_BADGE   = {"Delivered":"badge-success","En Route":"badge-info","Pending":
 PRIORITY_BADGE = {"Normal":"badge-success","Urgent":"badge-warning","Emergency":"badge-danger"}
 NOTIF_COLORS   = {"success":SUCCESS,"info":BLUE,"warning":WARNING,"error":DANGER}
 NOTIF_ICONS    = {"success":"✅","info":"ℹ️","warning":"⚠️","error":"🚨"}
-LOCATIONS      = ["Hostel A","Hostel B","Library","Cafeteria","Academic Block","Medical Centre"]
+LOCATIONS = [
+    "Hostel A",
+    "Hostel B",
+    "Library",
+    "Cafeteria",
+    "Academic Block",
+    "Medical Centre"
+]
 
 def metric_card(label, value, delta="", color=BLUE):
     delta_html = f"<div style='font-size:12px;color:#64748b;margin-top:3px;'>{delta}</div>" if delta else ""
