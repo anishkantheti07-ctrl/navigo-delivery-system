@@ -527,6 +527,7 @@ def page_tracking():
     st.markdown(f"<h3 style='color:{NAVY};'>🗺️ Campus Map — Live TURBO Location</h3>", unsafe_allow_html=True)
  
     tx, ty = turbo_pos(active)
+    st.write("Turbo:", tx, ty)
  
     # Road grid lines for visual depth
     road_shapes = []
@@ -563,7 +564,11 @@ def page_tracking():
     # Route dashed line
     fig.add_trace(go.Scatter(
         x=WP_X, y=WP_Y, mode="lines",
-        line=dict(color="#2563eb",width=12,dash="dash"),
+        line=dict(
+            color="#ff0000",
+            width=18,
+            dash="solid"
+        ),
         name="Route", hoverinfo="skip",
     ))
  
@@ -613,13 +618,13 @@ def page_tracking():
                 y=[by],
                 mode="markers+text",
                 marker=dict(
-                    size=22,
+                    size=45,
                     color="white",
                     line=dict(color="#2563eb", width=3)
                 ),
                 text=[building_icons.get(bname,"📍")],
                 textposition="middle center",
-                textfont=dict(size=18),
+                textfont=dict(size=28),
                 showlegend=False,
                 hovertemplate=f"<b>{bname}</b><extra></extra>"
             )
@@ -654,7 +659,7 @@ def page_tracking():
     )
  
     fig.update_layout(
-        height=650,
+        height=450,
         margin=dict(l=0,r=0,t=10,b=10),
         plot_bgcolor="#f0f4e8",
         paper_bgcolor="white",
