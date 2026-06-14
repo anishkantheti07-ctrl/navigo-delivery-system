@@ -658,6 +658,9 @@ def page_tracking():
         yaxis=dict(showgrid=False,zeroline=False,showticklabels=False,range=[-0.04,1.04]),
         hoverlabel=dict(bgcolor="white",font_size=13,font_color=NAVY),
     )
+    st.write("Building count:", len(BUILDINGS))
+    st.write("WP_X:", WP_X)
+    st.write("WP_Y:", WP_Y)
     st.plotly_chart(fig, use_container_width=True)
     
     # Controls
