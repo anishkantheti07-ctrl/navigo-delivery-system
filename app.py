@@ -655,18 +655,6 @@ def page_tracking():
             font=dict(size=24)
         )
 
-        fig.add_trace(
-            go.Scatter(
-                x=[tx],
-                y=[ty],
-                mode="text",
-                text=["🚚"],
-                textfont=dict(size=28),
-                showlegend=False,
-                hoverinfo="skip"
-            )
-        )
-
         fig.add_annotation(
             x=bx,
             y=by-0.05,
@@ -678,18 +666,6 @@ def page_tracking():
             )
         )
 
-        fig.add_trace(
-            go.Scatter(
-                x=[tx],
-                y=[ty],
-                mode="text",
-                text=["🚚"],
-                textfont=dict(size=28),
-                showlegend=False,
-                hoverinfo="skip"
-            )
-        )
-    
     # TURBO marker
 
     fig.add_trace(
@@ -703,6 +679,14 @@ def page_tracking():
             hoverinfo="skip"
         )
     )
+
+    fig.add_annotation(
+        x=tx,
+        y=ty,
+        text="🚚",
+        showarrow=False,
+        font=dict(size=32)
+    )
     
     fig.update_layout(
         height=450,
@@ -715,6 +699,7 @@ def page_tracking():
         hoverlabel=dict(bgcolor="white",font_size=13,font_color=NAVY),
     )
     
+    st.write("Truck Position:", tx, ty)
     st.plotly_chart(fig, use_container_width=True)
  
     # Controls
