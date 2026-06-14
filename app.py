@@ -1,5 +1,5 @@
 """
-NAVIGO — Smart Autonomous Campus Delivery Ecosystem
+NAVIGO — The future of Last-mile logistics
 Streamlit prototype · All data simulated/hardcoded
 
 Run:  streamlit run app.py
@@ -30,16 +30,16 @@ DANGER  = "#ef4444"
 BG      = "#eef4ff"
 
 # ── GLOBAL CSS ───────────────────────────────────────────────────────────────
-st.markdown("""
+st.markdown(f"""
 <style>
 /* Body */
-[data-testid="stAppViewContainer"] {
+[data-testid="stAppViewContainer"] {{
     background: linear-gradient(
         180deg,
         #eef4ff 0%,
         #f8fbff 100%
     );
-}
+}}
 [data-testid="block-container"]    {{ padding-top:1.4rem; padding-bottom:2.5rem; }}
 
 /* Sidebar */
@@ -119,23 +119,23 @@ st.markdown("""
 
 /* Inputs */
     .stTextInput > div > div > input,
-    .stTextArea > div > div > textarea {
+    .stTextArea > div > div > textarea {{
         border-radius:12px !important;
         border:2px solid #e2e8f6 !important;
         background:#fafbff !important;
         color:#0f172a !important;
         font-weight:600 !important;
-    }
+    }}
 
-    .stSelectbox div[data-baseweb="select"] {
+    .stSelectbox div[data-baseweb="select"] {{
         color:#0f172a !important;
-    }
+    }}
 
 /* Placeholder */
-    ::placeholder {
+    ::placeholder {{
         color:#64748b !important;
         opacity:1 !important;
-    }
+    }}
 
 /* Progress */
 .stProgress > div > div > div > div {{ background:linear-gradient(90deg,{BLUE},{TEAL}) !important; }}
@@ -155,6 +155,14 @@ st.markdown("""
 [data-testid="stMetricLabel"]       {{ color:#64748b !important; font-weight:600 !important; }}
 [data-testid="stMetricDeltaIcon--up"]   {{ color:{SUCCESS} !important; }}
 [data-testid="stMetricDeltaIcon--down"] {{ color:{DANGER}  !important; }}
+
+h1, h2, h3, h4, h5, h6,
+p,
+label,
+span,
+div[data-testid="stMarkdownContainer"] {{
+    color: #0f172a !important;
+}}
 </style>
 """, unsafe_allow_html=True)
 
