@@ -556,21 +556,28 @@ def page_tracking():
                   fillcolor="#f0f4e8",line=dict(color="#d4ddc8",width=1))
  
     # Roads
-    for s in road_shapes:
-        fig.add_shape(**s)
+    # s in road_shapes:
+    #    fig.add_shape(**s)
     for s in green_shapes:
         fig.add_shape(**s)
  
     # Route dashed line
-    fig.add_trace(go.Scatter(
-        x=WP_X, y=WP_Y, mode="lines",
-        line=dict(
-            color="#ff0000",
-            width=18,
-            dash="solid"
-        ),
-        name="Route", hoverinfo="skip",
-    ))
+    fig.add_trace(
+        go.Scatter(
+            x=WP_X,
+            y=WP_Y,
+            mode="lines+markers",
+            line=dict(
+                color="red",
+                width=20
+            ),
+            marker=dict(
+                size=18,
+                color="red"
+            ),
+            showlegend=False
+        )
+    )
  
     # Completed route (solid, highlighted)
     seg   = min(int((min(active/(len(TRACK_STEPS)-1),1.0))*(len(WP_X)-1)), len(WP_X)-2)
@@ -646,9 +653,9 @@ def page_tracking():
             y=[ty],
             mode="markers+text",
             marker=dict(
-                size=30,
+                size=80,
                 color="#ef4444",
-                line=dict(color="white",width=3)
+                line=dict(color="black",width=5)
             ),
             text=["🚚"],
             textposition="middle center",
