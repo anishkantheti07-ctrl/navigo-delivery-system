@@ -492,9 +492,6 @@ BUILDINGS = {
 def get_route():
     active_req = st.session_state.get("active_delivery")
 
-    st.write(active_req)
-    st.write(BUILDINGS.keys())
-    
     if active_req:
         start_x, start_y = BUILDINGS[active_req["pickup"]]
         end_x, end_y = BUILDINGS[active_req["dropoff"]]
