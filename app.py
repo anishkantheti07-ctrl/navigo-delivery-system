@@ -456,8 +456,26 @@ BUILDINGS = {
     "🏠 Hostel B":       (0.78, 0.80),
     "⚡ Base Station":   (0.50, 0.92),
 }
-WP_X = [0.10,0.18,0.35,0.50,0.58,0.70,0.82]
-WP_Y = [0.88,0.78,0.68,0.58,0.46,0.30,0.16]
+
+WP_X = [
+    0.10,
+    0.20,
+    0.35,
+    0.45,
+    0.58,
+    0.70,
+    0.82
+]
+
+WP_Y = [
+    0.88,
+    0.80,
+    0.68,
+    0.58,
+    0.46,
+    0.30,
+    0.16
+]
  
 def turbo_pos(step):
     total = len(TRACK_STEPS) - 1
@@ -560,6 +578,18 @@ def page_tracking():
     #    fig.add_shape(**s)
     for s in green_shapes:
         fig.add_shape(**s)
+        fig.add_shape(
+            type="line",
+            x0=0.10,
+            y0=0.88,
+            x1=0.82,
+            y1=0.16,
+            line=dict(
+                color="#2563eb",
+                width=6,
+                dash="dash"
+            )
+        )
  
     # Route dashed line
     fig.add_trace(
@@ -638,30 +668,14 @@ def page_tracking():
         )
 
         fig.add_annotation(
-            x=bx,
-            y=by-0.05,
-            text=bname,
+            x=tx,
+            y=ty,
+            text="🚚",
             showarrow=False,
-            font=dict(size=12,color="#0f172a"
-            )
+            font=dict(size=35)
         )
     # TURBO marker
 
-    fig.add_trace(
-        go.Scatter(
-            x=[tx],
-            y=[ty],
-            mode="markers",
-            marker=dict(
-                size=80,
-                color="red",
-                symbol="circle",
-                line=dict(color="black",width=5)
-            ),
-            showlegend=False
-        )
-    )
- 
     fig.update_layout(
         height=450,
         margin=dict(l=0,r=0,t=10,b=10),
