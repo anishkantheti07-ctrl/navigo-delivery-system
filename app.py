@@ -27,13 +27,19 @@ PURPLE  = "#8b5cf6"
 SUCCESS = "#22c55e"
 WARNING = "#f59e0b"
 DANGER  = "#ef4444"
-BG      = "#eef2ff"
+BG      = "#eef4ff"
 
 # ── GLOBAL CSS ───────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
 /* Body */
-[data-testid="stAppViewContainer"] {{ background: {BG}; }}
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(
+        180deg,
+        #eef4ff 0%,
+        #f8fbff 100%
+    );
+}
 [data-testid="block-container"]    {{ padding-top:1.4rem; padding-bottom:2.5rem; }}
 
 /* Sidebar */
