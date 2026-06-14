@@ -480,24 +480,27 @@ def page_request():
 TRACK_STEPS = ["Request Received","TURBO Assigned","En Route","Near Destination","Delivered"]
  
 BUILDINGS = {
-    "🏠 Hostel A":       (0.10, 0.88),
-    "🍽 Cafeteria":      (0.35, 0.68),
-    "🏫 Academic Block": (0.58, 0.46),
-    "📚 Library":        (0.82, 0.16),
-    "🏥 Medical Centre": (0.18, 0.46),
-    "🏠 Hostel B":       (0.78, 0.80),
-    "⚡ Base Station":   (0.50, 0.92),
+    "Hostel A":       (0.10, 0.88),
+    "Cafeteria":      (0.35, 0.68),
+    "Academic Block": (0.58, 0.46),
+    "Library":        (0.82, 0.16),
+    "Medical Centre": (0.18, 0.46),
+    "Hostel B":       (0.78, 0.80),
+    "Base Station":   (0.50, 0.92),
 }
 
 def get_route():
     active_req = st.session_state.get("active_delivery")
 
+    st.write(active_req)
+    st.write(BUILDINGS.keys())
+    
     if active_req:
         start_x, start_y = BUILDINGS[active_req["pickup"]]
         end_x, end_y = BUILDINGS[active_req["dropoff"]]
     else:
-        start_x, start_y = BUILDINGS["🏠 Hostel A"]
-        end_x, end_y = BUILDINGS["📚 Library"]
+        start_x, start_y = BUILDINGS["Hostel A"]
+        end_x, end_y = BUILDINGS["Library"]
 
     return [start_x, end_x], [start_y, end_y]
 
