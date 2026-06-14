@@ -446,19 +446,19 @@ def page_request():
 
 # ── PAGE: LIVE TRACKING ───────────────────────────────────────────────────────
 TRACK_STEPS = ["Request Received","TURBO Assigned","En Route","Near Destination","Delivered"]
-
+ 
 BUILDINGS = {
-    "Hostel A":       (0.10, 0.88),
-    "Cafeteria":      (0.35, 0.68),
-    "Academic Block": (0.58, 0.46),
-    "Library":        (0.82, 0.16),
-    "Medical Centre": (0.18, 0.46),
-    "Hostel B":       (0.78, 0.80),
-    "Base Station":   (0.50, 0.92),
+    "🏠 Hostel A":       (0.10, 0.88),
+    "🍽 Cafeteria":      (0.35, 0.68),
+    "🏫 Academic Block": (0.58, 0.46),
+    "📚 Library":        (0.82, 0.16),
+    "🏥 Medical Centre": (0.18, 0.46),
+    "🏠 Hostel B":       (0.78, 0.80),
+    "⚡ Base Station":   (0.50, 0.92),
 }
-WP_X = [0.10, 0.35, 0.58, 0.82]
-WP_Y = [0.88, 0.68, 0.46, 0.16]
-
+WP_X = [0.10,0.18,0.35,0.50,0.58,0.70,0.82]
+WP_Y = [0.88,0.78,0.68,0.58,0.46,0.30,0.16]
+ 
 def turbo_pos(step):
     total = len(TRACK_STEPS) - 1
     frac  = min(step / total, 1.0)
@@ -467,17 +467,17 @@ def turbo_pos(step):
     x = WP_X[seg] + t*(WP_X[seg+1]-WP_X[seg])
     y = WP_Y[seg] + t*(WP_Y[seg+1]-WP_Y[seg])
     return x, y
-
+ 
 def page_tracking():
     st.markdown(f"<h2 style='color:{NAVY};font-weight:900;'>📍 Live Tracking</h2>", unsafe_allow_html=True)
-
+ 
     active  = st.session_state.tracking_step
     eta_sec = st.session_state.tracking_eta
     mins, secs = divmod(eta_sec, 60)
-
+ 
     # ── ETA + Progress ────────────────────────────────
     col_eta, col_prog = st.columns([1, 2])
-
+ 
     with col_eta:
         step_label = TRACK_STEPS[active] if active < len(TRACK_STEPS) else "Delivered"
         st.markdown(f"""
@@ -495,7 +495,7 @@ def page_tracking():
             </div>
         </div>
         """, unsafe_allow_html=True)
-
+ 
     with col_prog:
         st.markdown(f"""
         <div class="card">
@@ -520,31 +520,116 @@ def page_tracking():
             </div>
             """, unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
-
+ 
     st.markdown("<br>", unsafe_allow_html=True)
-
-    st.markdown(
-    f"<h3 style='color:{NAVY};'>🗺️ Live TURBO Location</h3>",
-    unsafe_allow_html=True
-)
-
-    map_data = pd.DataFrame({
-    "lat": [17.4470, 17.4480, 17.4490],
-    "lon": [78.3490, 78.3500, 78.3510]
-})
-
-    st.map(map_data, zoom=15)
-
-    st.markdown(f"""
-    <div class="card">
-        <h4 style="color:{NAVY};">📍 Route Details</h4>
-        <p><b>Pickup:</b> {active_req['pickup'] if active_req else 'Hostel A'}</p>
-        <p><b>Destination:</b> {active_req['dropoff'] if active_req else 'Library'}</p>
-        <p><b>Rover:</b> TURBO</p>
-        <p><b>Status:</b> In Transit</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
+ 
+    # ── Google-Maps-style campus map ─────────────────
+    st.markdown(f"<h3 style='color:{NAVY};'>🗺️ Campus Map — Live TURBO Location</h3>", unsafe_allow_html=True)
+ 
+    tx, ty = turbo_pos(active)
+ 
+    # Road grid lines for visual depth
+    road_shapes = []
+    for v in [0.25, 0.50, 0.75]:
+        road_shapes.append(dict(type="line",x0=v,y0=0,x1=v,y1=1,
+            line=dict(color="#9ca3af",width=28)))
+        road_shapes.append(dict(type="line",x0=0,y0=v,x1=1,y1=v,
+            line=dict(color="#9ca3af",width=28)))
+ 
+    # Campus boundary
+    road_shapes.append(dict(type="rect",x0=0,y0=0,x1=1,y1=1,
+        line=dict(color="#c8d4e0",width=2),fillcolor="rgba(0,0,0,0)"))
+ 
+    # Green areas
+    green_shapes = [
+        dict(type="rect",x0=0.60,y0=0.55,x1=0.78,y1=0.72,
+             line=dict(color="#86efac",width=0),fillcolor="rgba(220,252,231,0.53)"),
+        dict(type="rect",x0=0.02,y0=0.02,x1=0.14,y1=0.30,
+             line=dict(color="#86efac",width=0),fillcolor="rgba(220,252,231,0.53)"),
+    ]
+ 
+    fig = go.Figure()
+ 
+    # Background fill
+    fig.add_shape(type="rect",x0=-0.02,y0=-0.02,x1=1.02,y1=1.02,
+                  fillcolor="#f0f4e8",line=dict(color="#d4ddc8",width=1))
+ 
+    # Roads
+    for s in road_shapes:
+        fig.add_shape(**s)
+    for s in green_shapes:
+        fig.add_shape(**s)
+ 
+    # Route dashed line
+    fig.add_trace(go.Scatter(
+        x=WP_X, y=WP_Y, mode="lines",
+        line=dict(color="#2563eb",width=12,dash="dash"),
+        name="Route", hoverinfo="skip",
+    ))
+ 
+    # Completed route (solid, highlighted)
+    seg   = min(int((min(active/(len(TRACK_STEPS)-1),1.0))*(len(WP_X)-1)), len(WP_X)-2)
+    t_frc = (min(active/(len(TRACK_STEPS)-1),1.0)*(len(WP_X)-1)) - seg
+    cx    = WP_X[seg] + t_frc*(WP_X[seg+1]-WP_X[seg])
+    cy    = WP_Y[seg] + t_frc*(WP_Y[seg+1]-WP_Y[seg])
+    fig.add_trace(go.Scatter(
+        x=WP_X[:seg+1]+[cx], y=WP_Y[:seg+1]+[cy],
+        mode="lines",
+        line=dict(color="#22c55e",width=12),
+        name="Done", hoverinfo="skip",
+    ))
+ 
+    # Building markers
+    bld_colors = {
+        "🏠 Hostel A":"#3b82f6",
+        "🏠 Hostel B":"#3b82f6",
+        "🍽 Cafeteria":"#f59e0b",
+        "🏫 Academic Block":"#06b6d4",
+        "📚 Library":"#8b5cf6",
+        "🏥 Medical Centre":"#ef4444",
+        "⚡ Base Station":"#22c55e",
+    }
+    for bname,(bx,by) in BUILDINGS.items():
+        col = bld_colors.get(bname,"#64748b")
+        fig.add_trace(go.Scatter(
+            x=[bx], y=[by], mode="markers+text",
+            marker=dict(size=40, color=col, symbol="square",
+                        line=dict(color="white",width=2.5)),
+            text=[bname],
+            textposition="top center",
+            textfont=dict(size=16, color="#1e293b", family="Arial Black"),
+            name=bname, hovertemplate=f"<b>{bname}</b><extra></extra>",
+        ))
+ 
+    # Turbo marker with glow ring
+    fig.add_trace(go.Scatter(
+        x=[tx], y=[ty], mode="markers",
+        marker=dict(size=70, color=BLUE, symbol="circle",
+                    opacity=0.18, line=dict(color=BLUE,width=0)),
+        hoverinfo="skip", showlegend=False,
+    ))
+    fig.add_trace(go.Scatter(
+        x=[tx], y=[ty], mode="markers+text",
+        marker=dict(size=36, color=BLUE, symbol="circle",
+                    line=dict(color="white",width=3)),
+        text=["🚚"],
+        textposition="middle center",
+        textfont=dict(size=14),
+        name="TURBO", hovertemplate="<b>TURBO</b><br>Live Location<extra></extra>",
+    ))
+ 
+    fig.update_layout(
+        height=650,
+        margin=dict(l=0,r=0,t=10,b=10),
+        plot_bgcolor="#f0f4e8",
+        paper_bgcolor="white",
+        showlegend=False,
+        xaxis=dict(showgrid=False,zeroline=False,showticklabels=False,range=[-0.04,1.04]),
+        yaxis=dict(showgrid=False,zeroline=False,showticklabels=False,range=[-0.04,1.04]),
+        hoverlabel=dict(bgcolor="white",font_size=13,font_color=NAVY),
+    )
+    st.plotly_chart(fig, use_container_width=True)
+ 
     # Controls
     b1, b2, _ = st.columns([1,1,4])
     with b1:
@@ -557,17 +642,18 @@ def page_tracking():
             st.session_state.tracking_step = 0
             st.session_state.tracking_eta  = 600
             st.rerun()
-
+ 
     # ── Active Delivery Details ──────────────────────
     st.markdown("<br>", unsafe_allow_html=True)
-
+ 
     # Prefer user's own submitted delivery; fallback to any En Route
     active_req = st.session_state.get("active_delivery") or \
                  next((r for r in st.session_state.requests if r["status"]=="En Route"), None)
+
     if active_req:
        st.success(
         f"🚚 TURBO is currently travelling from {active_req['pickup']} to {active_req['dropoff']}"
-    )
+       ) 
 
     if active_req:
         st.markdown(f"""
@@ -576,19 +662,19 @@ def page_tracking():
                 📦 Active Delivery Details
             </div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
-                <div style="background:#dbeafe;border-radius:12px;padding:14px;">
+                <div style="background:{BLUE}12;border-radius:12px;padding:14px;">
                     <div style="font-size:11px;color:#64748b;font-weight:700;letter-spacing:.5px;margin-bottom:4px;">DELIVERY ID</div>
                     <div style="font-size:16px;font-weight:900;color:{BLUE};">{active_req['id']}</div>
                 </div>
-                <div style="background:#ccfbf1;border-radius:12px;padding:14px;">
+                <div style="background:{TEAL}12;border-radius:12px;padding:14px;">
                     <div style="font-size:11px;color:#64748b;font-weight:700;letter-spacing:.5px;margin-bottom:4px;">CUSTOMER</div>
                     <div style="font-size:16px;font-weight:900;color:{NAVY};">{active_req['name']}</div>
                 </div>
-                <div style="background:#fef3c7;border-radius:12px;padding:14px;">
+                <div style="background:{WARNING}12;border-radius:12px;padding:14px;">
                     <div style="font-size:11px;color:#64748b;font-weight:700;letter-spacing:.5px;margin-bottom:4px;">ITEM</div>
                     <div style="font-size:16px;font-weight:900;color:{NAVY};">{active_req['category']}</div>
                 </div>
-                <div style="background:#ede9fe;border-radius:12px;padding:14px;">
+                <div style="background:{PURPLE}12;border-radius:12px;padding:14px;">
                     <div style="font-size:11px;color:#64748b;font-weight:700;letter-spacing:.5px;margin-bottom:4px;">PRIORITY</div>
                     <div style="font-size:16px;font-weight:900;color:{PURPLE};">{active_req['priority']}</div>
                 </div>
