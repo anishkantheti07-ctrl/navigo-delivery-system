@@ -118,6 +118,19 @@ st.markdown(f"""
 }}
 
 /* Inputs */
+
+.stTextInput label,
+.stTextArea label,
+.stSelectbox label {{
+    color:#0f172a !important;
+    font-weight:600 !important;
+}}
+
+.stTextInput input,
+.stTextArea textarea {{
+    color:#0f172a !important;
+}}
+
     .stTextInput > div > div > input,
     .stTextArea > div > div > textarea {{
         border-radius:12px !important;
@@ -156,13 +169,6 @@ st.markdown(f"""
 [data-testid="stMetricDeltaIcon--up"]   {{ color:{SUCCESS} !important; }}
 [data-testid="stMetricDeltaIcon--down"] {{ color:{DANGER}  !important; }}
 
-h1, h2, h3, h4, h5, h6,
-p,
-label,
-span,
-div[data-testid="stMarkdownContainer"] {{
-    color: #0f172a !important;
-}}
 </style>
 """, unsafe_allow_html=True)
 
@@ -214,7 +220,7 @@ with st.sidebar:
     <div style='text-align:center;padding:24px 0 20px;'>
         <div class="float" style='font-size:40px;'>🚚</div>
         <div style='font-size:26px;font-weight:900;color:white;letter-spacing:3px;margin:8px 0 4px;'>NAVIGO</div>
-        <div style='font-size:11px;color:#64748b;margin-bottom:14px;letter-spacing:1px;'>SMART CAMPUS DELIVERY</div>
+        <div style='font-size:11px;color:#64748b;margin-bottom:14px;letter-spacing:1px;'>THE FUTURE OF LOGISTICS</div>
         <div style='background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);
                     border-radius:20px;padding:6px 14px;display:inline-block;font-size:12px;color:{SUCCESS};'>
             <span class='pulse' style='display:inline-block;width:7px;height:7px;
@@ -308,7 +314,7 @@ def page_home():
     st.markdown(f"""
     <div class="hero-card">
         <div style='font-size:11px;letter-spacing:4px;color:{TEAL};font-weight:800;margin-bottom:10px;'>
-            NAVIGO · AUTONOMOUS DELIVERY
+            NAVIGO · THE FUTURE OF LOGISTICS
         </div>
         <h1 style='color:white;margin:0 0 12px;font-size:2.8rem;font-weight:900;line-height:1.15;'>
             Meet <span style='color:{TEAL};'>TURBO</span> 🚚
