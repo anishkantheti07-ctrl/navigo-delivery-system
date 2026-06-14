@@ -27,6 +27,7 @@ PURPLE  = "#8b5cf6"
 SUCCESS = "#22c55e"
 WARNING = "#f59e0b"
 DANGER  = "#ef4444"
+BORDER  = "#374151"
 BG      = "#eef4ff"
 
 # ── GLOBAL CSS ───────────────────────────────────────────────────────────────
@@ -117,50 +118,36 @@ st.markdown(f"""
     transform:translateY(-1px); box-shadow:0 6px 16px rgba(69,137,245,.4) !important;
 }}
 
-/* Inputs */
-
-.stTextInput label,
-.stTextArea label,
-.stSelectbox label {{
-    color:#0f172a !important;
+/* Text Inputs */
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea {{
+    border-radius:12px !important;
+    border:2px solid #374151 !important;
+    background:#1f2937 !important;
+    color:white !important;
     font-weight:600 !important;
 }}
 
-.stTextInput input,
-.stTextArea textarea {{
-    color:#0f172a !important;
-}}
-
-    .stTextInput > div > div > input,
-    .stTextArea > div > div > textarea {{
-        border-radius:12px !important;
-        border:2px solid #e2e8f6 !important;
-        background:#fafbff !important;
-        color:#0f172a !important;
-        font-weight:600 !important;
-    }}
-
-/* Force all select boxes white */
+/* Selectboxes */
 div[data-baseweb="select"] {{
-    background:white !important;
-    color:#0f172a !important;
-    border:2px solid #e2e8f6 !important;
+    background:#1f2937 !important;
+    border:2px solid #374151 !important;
     border-radius:12px !important;
 }}
 
-div[data-baseweb="select"] span {{
-    color:#0f172a !important;
+div[data-baseweb="select"] * {{
+    color:white !important;
 }}
 
 div[data-baseweb="select"] svg {{
-    fill:#0f172a !important;
+    fill:white !important;
 }}
 
-/* Placeholder */
-    ::placeholder {{
-        color:#64748b !important;
-        opacity:1 !important;
-    }}
+/* Placeholders */
+::placeholder {{
+    color:#cbd5e1 !important;
+    opacity:1 !important;
+}}
 
 /* Progress */
 .stProgress > div > div > div > div {{ background:linear-gradient(90deg,{BLUE},{TEAL}) !important; }}
