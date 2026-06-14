@@ -667,6 +667,18 @@ def page_tracking():
         )
     # TURBO marker
 
+    fig.add_trace(
+        go.Scatter(
+            x=[tx],
+            y=[ty],
+            mode="text",
+            text=["🚚"],
+            textfont=dict(size=28),
+            showlegend=False,
+            hoverinfo="skip"
+        )
+    )
+    
     fig.update_layout(
         height=450,
         margin=dict(l=0,r=0,t=10,b=10),
