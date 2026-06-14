@@ -574,8 +574,8 @@ def page_tracking():
                   fillcolor="#f0f4e8",line=dict(color="#d4ddc8",width=1))
  
     # Roads
-    # s in road_shapes:
-    #    fig.add_shape(**s)
+    for s in road_shapes:
+        fig.add_shape(**s)
     for s in green_shapes:
         fig.add_shape(**s)
         fig.add_shape(
