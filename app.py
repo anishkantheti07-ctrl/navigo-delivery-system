@@ -651,17 +651,14 @@ def page_tracking():
         go.Scatter(
             x=[tx],
             y=[ty],
-            mode="markers+text",
+            mode="markers",
             marker=dict(
                 size=80,
-                color="#ef4444",
+                color="red",
+                symbol="circle"
                 line=dict(color="black",width=5)
             ),
-            text=["🚚"],
-            textposition="middle center",
-            textfont=dict(size=20),
-            showlegend=False,
-            hovertemplate="<b>TURBO</b><extra></extra>"
+            showlegend=False
         )
     )
  
