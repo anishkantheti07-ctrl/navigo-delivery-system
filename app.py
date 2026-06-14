@@ -620,13 +620,15 @@ def page_tracking():
     for bname,(bx,by) in BUILDINGS.items():
         col = bld_colors.get(bname,"#64748b")
         fig.add_trace(go.Scatter(
-            x=[bx], y=[by], mode="markers+text",
-            marker=dict(size=40, color=col, symbol="square",
-                        line=dict(color="white",width=2.5)),
+            x=[bx],
+            y=[by],
+            mode="markers+text",
+            marker=dict(
+            size=45,
+            color="red"
+            ),
             text=[bname],
-            textposition="top center",
-            textfont=dict(size=10, color="#1e293b", family="Arial Black"),
-            name=bname, hovertemplate=f"<b>{bname}</b><extra></extra>",
+            textposition="top center"
         ))
 
     # Turbo marker with glow ring
@@ -657,10 +659,7 @@ def page_tracking():
         hoverlabel=dict(bgcolor="white",font_size=13,font_color=NAVY),
     )
     st.plotly_chart(fig, use_container_width=True)
-    st.success(
-    f"🚚 TURBO is currently travelling from {active_req['pickup']} to {active_req['dropoff']}"
-)
-
+    
     # Controls
     b1, b2, _ = st.columns([1,1,4])
     with b1:
@@ -680,6 +679,10 @@ def page_tracking():
     # Prefer user's own submitted delivery; fallback to any En Route
     active_req = st.session_state.get("active_delivery") or \
                  next((r for r in st.session_state.requests if r["status"]=="En Route"), None)
+    if active_req:
+       st.success(
+        f"🚚 TURBO is currently travelling from {active_req['pickup']} to {active_req['dropoff']}"
+    )
 
     if active_req:
         st.markdown(f"""
