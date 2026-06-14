@@ -673,7 +673,11 @@ def page_tracking():
         hoverlabel=dict(bgcolor="white",font_size=13,font_color=NAVY),
     )
     
+    st.write("Turbo:", tx, ty)
     st.write("Traces:", len(fig.data))
+
+    for i, trace in enumerate(fig.data):
+        st.write(i, trace.name)
     st.plotly_chart(fig, use_container_width=True)
  
     # Controls
