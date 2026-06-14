@@ -482,33 +482,28 @@ BUILDINGS = {
     "⚡ Base Station":   (0.50, 0.92),
 }
 
-WP_X = [
-    0.10,
-    0.20,
-    0.35,
-    0.45,
-    0.58,
-    0.70,
-    0.82
-]
+def get_route():
+    active_req = st.session_state.get("active_delivery")
 
-WP_Y = [
-    0.88,
-    0.80,
-    0.68,
-    0.58,
-    0.46,
-    0.30,
-    0.16
-]
- 
+    if active_req:
+        start_x, start_y = BUILDINGS[active_req["pickup"]]
+        end_x, end_y = BUILDINGS[active_req["dropoff"]]
+    else:
+        start_x, start_y = BUILDINGS["🏠 Hostel A"]
+        end_x, end_y = BUILDINGS["📚 Library"]
+
+    return [start_x, end_x], [start_y, end_y]
+
 def turbo_pos(step):
+
+    WP_X, WP_Y = get_route()
+
     total = len(TRACK_STEPS) - 1
-    frac  = min(step / total, 1.0)
-    seg   = min(int(frac * (len(WP_X)-1)), len(WP_X)-2)
-    t     = (frac * (len(WP_X)-1)) - seg
-    x = WP_X[seg] + t*(WP_X[seg+1]-WP_X[seg])
-    y = WP_Y[seg] + t*(WP_Y[seg+1]-WP_Y[seg])
+    frac = min(step / total, 1.0)
+
+    x = WP_X[0] + frac * (WP_X[1] - WP_X[0])
+    y = WP_Y[0] + frac * (WP_Y[1] - WP_Y[0])
+
     return x, y
  
 def page_tracking():
@@ -569,8 +564,10 @@ def page_tracking():
     # ── Google-Maps-style campus map ─────────────────
     st.markdown(f"<h3 style='color:{NAVY};'>🗺️ Campus Map — Live TURBO Location</h3>", unsafe_allow_html=True)
  
+    WP_X, WP_Y = get_route()
+
     tx, ty = turbo_pos(active)
- 
+
     # Road grid lines for visual depth
     road_shapes = []
     for v in [0.25, 0.50, 0.75]:
@@ -602,18 +599,19 @@ def page_tracking():
         fig.add_shape(**s)
     for s in green_shapes:
         fig.add_shape(**s)
-        fig.add_shape(
-            type="line",
-            x0=0.10,
-            y0=0.88,
-            x1=0.82,
-            y1=0.16,
-            line=dict(
-                color="#2563eb",
-                width=6,
-                dash="dash"
-            )
+
+    fig.add_shape(
+        type="line",
+        x0=WP_X[0],
+        y0=WP_Y[0],
+        x1=WP_X[1],
+        y1=WP_Y[1],
+        line=dict(
+            color="#2563eb",
+            width=6,
+            dash="dash"
         )
+    )
  
     # Route dashed line
     fig.add_trace(
