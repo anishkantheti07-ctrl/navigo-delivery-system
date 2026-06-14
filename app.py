@@ -527,17 +527,49 @@ def page_tracking():
 
     tx, ty = turbo_pos(active)
 
-    # Road grid lines for visual depth
-    road_shapes = []
-    for v in [0.25, 0.50, 0.75]:
-        road_shapes.append(dict(type="line",x0=v,y0=0,x1=v,y1=1,
-            line=dict(color="#e8e0d0",width=8)))
-        road_shapes.append(dict(type="line",x0=0,y0=v,x1=1,y1=v,
-            line=dict(color="#e8e0d0",width=8)))
+    road_shapes = [
 
-    # Campus boundary
-    road_shapes.append(dict(type="rect",x0=0,y0=0,x1=1,y1=1,
-        line=dict(color="#c8d4e0",width=2),fillcolor="rgba(0,0,0,0)"))
+    dict(
+        type="rect",
+        x0=0.20, y0=0,
+        x1=0.28, y1=1,
+        fillcolor="#d1d5db",
+        line=dict(width=0)
+    ),
+
+    dict(
+        type="rect",
+        x0=0.45, y0=0,
+        x1=0.53, y1=1,
+        fillcolor="#d1d5db",
+        line=dict(width=0)
+    ),
+
+    dict(
+        type="rect",
+        x0=0.70, y0=0,
+        x1=0.78, y1=1,
+        fillcolor="#d1d5db",
+        line=dict(width=0)
+    ),
+
+    dict(
+        type="rect",
+        x0=0, y0=0.22,
+        x1=1, y1=0.30,
+        fillcolor="#d1d5db",
+        line=dict(width=0)
+    ),
+
+    dict(
+        type="rect",
+        x0=0, y0=0.47,
+        x1=1, y1=0.55,
+        fillcolor="#d1d5db",
+        line=dict(width=0)
+    ),
+
+]
 
     # Green areas
     green_shapes = [
@@ -562,7 +594,7 @@ def page_tracking():
     # Route dashed line
     fig.add_trace(go.Scatter(
         x=WP_X, y=WP_Y, mode="lines",
-        line=dict(color=BLUE,width=5,dash="dot"),
+        line=dict(color=BLUE,width=10,dash="dot"),
         name="Route", hoverinfo="skip",
     ))
 
@@ -574,7 +606,7 @@ def page_tracking():
     fig.add_trace(go.Scatter(
         x=WP_X[:seg+1]+[cx], y=WP_Y[:seg+1]+[cy],
         mode="lines",
-        line=dict(color=SUCCESS,width=5),
+        line=dict(color=SUCCESS,width=12),
         name="Done", hoverinfo="skip",
     ))
 
@@ -589,7 +621,7 @@ def page_tracking():
         col = bld_colors.get(bname,"#64748b")
         fig.add_trace(go.Scatter(
             x=[bx], y=[by], mode="markers+text",
-            marker=dict(size=26, color=col, symbol="square",
+            marker=dict(size=40, color=col, symbol="square",
                         line=dict(color="white",width=2.5)),
             text=[bname],
             textposition="top center",
@@ -600,13 +632,13 @@ def page_tracking():
     # Turbo marker with glow ring
     fig.add_trace(go.Scatter(
         x=[tx], y=[ty], mode="markers",
-        marker=dict(size=42, color=BLUE, symbol="circle",
+        marker=dict(size=70, color=BLUE, symbol="circle",
                     opacity=0.18, line=dict(color=BLUE,width=0)),
         hoverinfo="skip", showlegend=False,
     ))
     fig.add_trace(go.Scatter(
         x=[tx], y=[ty], mode="markers+text",
-        marker=dict(size=22, color=BLUE, symbol="circle",
+        marker=dict(size=38, color=BLUE, symbol="circle",
                     line=dict(color="white",width=3)),
         text=["🚚"],
         textposition="middle center",
@@ -615,16 +647,19 @@ def page_tracking():
     ))
 
     fig.update_layout(
-        height=380,
+        height=600,
         margin=dict(l=0,r=0,t=10,b=10),
-        plot_bgcolor="#f0f4e8",
-        paper_bgcolor="white",
+        plot_bgcolor="#f8fafc",
+        paper_bgcolor="#ffffff",
         showlegend=False,
         xaxis=dict(showgrid=False,zeroline=False,showticklabels=False,range=[-0.04,1.04]),
         yaxis=dict(showgrid=False,zeroline=False,showticklabels=False,range=[-0.04,1.04]),
         hoverlabel=dict(bgcolor="white",font_size=13,font_color=NAVY),
     )
     st.plotly_chart(fig, use_container_width=True)
+    st.success(
+    f"🚚 TURBO is currently travelling from {active_req['pickup']} to {active_req['dropoff']}"
+)
 
     # Controls
     b1, b2, _ = st.columns([1,1,4])
@@ -653,19 +688,19 @@ def page_tracking():
                 📦 Active Delivery Details
             </div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
-                <div style="background:{BLUE}12;border-radius:12px;padding:14px;">
+                <div style="background:#dbeafe;border-radius:12px;padding:14px;">
                     <div style="font-size:11px;color:#64748b;font-weight:700;letter-spacing:.5px;margin-bottom:4px;">DELIVERY ID</div>
                     <div style="font-size:16px;font-weight:900;color:{BLUE};">{active_req['id']}</div>
                 </div>
-                <div style="background:{TEAL}12;border-radius:12px;padding:14px;">
+                <div style="background:#ccfbf1;border-radius:12px;padding:14px;">
                     <div style="font-size:11px;color:#64748b;font-weight:700;letter-spacing:.5px;margin-bottom:4px;">CUSTOMER</div>
                     <div style="font-size:16px;font-weight:900;color:{NAVY};">{active_req['name']}</div>
                 </div>
-                <div style="background:{WARNING}12;border-radius:12px;padding:14px;">
+                <div style="background:#fef3c7;border-radius:12px;padding:14px;">
                     <div style="font-size:11px;color:#64748b;font-weight:700;letter-spacing:.5px;margin-bottom:4px;">ITEM</div>
                     <div style="font-size:16px;font-weight:900;color:{NAVY};">{active_req['category']}</div>
                 </div>
-                <div style="background:{PURPLE}12;border-radius:12px;padding:14px;">
+                <div style="background:#ede9fe;border-radius:12px;padding:14px;">
                     <div style="font-size:11px;color:#64748b;font-weight:700;letter-spacing:.5px;margin-bottom:4px;">PRIORITY</div>
                     <div style="font-size:16px;font-weight:900;color:{PURPLE};">{active_req['priority']}</div>
                 </div>
