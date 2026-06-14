@@ -30,7 +30,7 @@ DANGER  = "#ef4444"
 BG      = "#eef2ff"
 
 # ── GLOBAL CSS ───────────────────────────────────────────────────────────────
-st.markdown(f"""
+st.markdown("""
 <style>
 /* Body */
 [data-testid="stAppViewContainer"] {{ background: {BG}; }}
@@ -112,18 +112,36 @@ st.markdown(f"""
 }}
 
 /* Inputs */
-.stTextInput > div > div > input,
-.stTextArea  > div > div > textarea,
-.stSelectbox > div > div {{
-    border-radius:12px !important;
-    border:2px solid #e2e8f6 !important;
-    background:#fafbff !important;
-}}
-.stTextInput > div > div > input:focus,
-.stTextArea  > div > div > textarea:focus {{
-    border-color:{BLUE} !important;
-    box-shadow:0 0 0 3px rgba(69,137,245,.15) !important;
-}}
+    .stTextInput > div > div > input,
+    .stTextArea > div > div > textarea {
+        border-radius:12px !important;
+        border:2px solid #e2e8f6 !important;
+        background:#fafbff !important;
+        color:#0f172a !important;
+        font-weight:600 !important;
+    }
+
+    .stSelectbox div[data-baseweb="select"] {
+        border-radius:12px !important;
+        border:2px solid #e2e8f6 !important;
+        background:#fafbff !important;
+        color:#0f172a !important;
+    }
+
+/* Form Labels */
+    label,
+    .stTextInput label,
+    .stTextArea label,
+    .stSelectbox label {
+        color:#0f172a !important;
+        font-weight:700 !important;
+    }
+
+/* Placeholder */
+    ::placeholder {
+        color:#64748b !important;
+        opacity:1 !important;
+    }
 
 /* Progress */
 .stProgress > div > div > div > div {{ background:linear-gradient(90deg,{BLUE},{TEAL}) !important; }}
@@ -435,7 +453,7 @@ def page_request():
             # Reset tracking to step 2 (En Route) for the new delivery
             st.session_state.tracking_step = 2
             st.session_state.tracking_eta  = 480
-            st.success(f"✅ TURBO assigned! Redirecting to Live Tracking…")
+            st.success("✅ TURBO assigned! Redirecting to Live Tracking…")
             st.session_state.page = "Live Tracking"
             st.rerun()
 
@@ -699,7 +717,6 @@ def page_tracking():
         hoverlabel=dict(bgcolor="white",font_size=13,font_color=NAVY),
     )
     
-    st.write("Truck Position:", tx, ty)
     st.plotly_chart(fig, use_container_width=True)
  
     # Controls
