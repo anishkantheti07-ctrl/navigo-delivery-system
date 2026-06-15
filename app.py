@@ -261,6 +261,16 @@ div[data-baseweb="select"] svg {{
     opacity:1 !important;
 }}
 
+/* Generic avatar container */
+
+[data-testid="stChatMessage"] [data-testid="stAvatar"]{{
+    background:#2563eb !important;
+
+    color:white !important;
+
+    border-radius:50% !important;
+}}
+
 </style>
 """, unsafe_allow_html=True)
 
