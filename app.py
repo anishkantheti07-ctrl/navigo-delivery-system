@@ -6,8 +6,6 @@ Run:  streamlit run app.py
 Deps: pip install streamlit plotly
 """
 
-from turtle import color
-
 import streamlit as st
 import plotly.graph_objects as go
 import datetime, random
