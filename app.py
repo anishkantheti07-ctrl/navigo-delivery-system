@@ -407,6 +407,56 @@ def request_card(req):
 def new_id():
     return f"NAV-{random.randint(1030,9999)}"
 
+# ── PAGE: LOGIN ─────────────────────────
+
+def page_login():
+
+    st.markdown(
+        f"<h2 style='color:{NAVY};font-weight:900;'>👤 Login</h2>",
+        unsafe_allow_html=True
+    )
+
+    username = st.text_input("University Email")
+
+    password = st.text_input(
+        "Password",
+        type="password"
+    )
+
+    if st.button("🚀 Login"):
+
+        st.success("Logged in successfully!")
+
+        st.session_state.page = "Home"
+
+        st.rerun()
+
+# ── PAGE: SIGN UP ──────────────────────
+
+def page_signup():
+
+    st.markdown(
+        f"<h2 style='color:{NAVY};font-weight:900;'>✨ Create Account</h2>",
+        unsafe_allow_html=True
+    )
+
+    name = st.text_input("Full Name")
+
+    email = st.text_input("University Email")
+
+    password = st.text_input(
+        "Create Password",
+        type="password"
+    )
+
+    if st.button("🎉 Sign Up"):
+
+        st.success("Account created!")
+
+        st.session_state.page = "Login"
+
+        st.rerun()
+
 # ── PAGE: HOME ────────────────────────────────────────────────────────────────
 def page_home():
     # Hero
@@ -438,6 +488,24 @@ def page_home():
         </div>
     </div>
     """, unsafe_allow_html=True)
+
+    col1, col2, col3 = st.columns([8,1,1])
+
+    with col2:
+
+        if st.button("👤 Login"):
+
+            st.session_state.page = "Login"
+
+            st.rerun()
+
+    with col3:
+
+        if st.button("✨ Sign Up"):
+
+            st.session_state.page = "Sign Up"
+
+            st.rerun()
 
     # KPI row
     c1, c2, c3, c4 = st.columns(4)
@@ -1240,6 +1308,8 @@ def page_dashboard():
 # ── ROUTER ────────────────────────────────────────────────────────────────────
 PAGE_MAP = {
     "Home":                page_home,
+    "Login":               page_login,
+    "Sign Up":             page_signup,
     "Request Delivery":    page_request,
     "Live Tracking":       page_tracking,
     "Notifications":       page_notifications,
