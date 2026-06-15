@@ -153,8 +153,27 @@ div[data-baseweb="select"] svg {{
 .stProgress > div > div > div > div {{ background:linear-gradient(90deg,{BLUE},{TEAL}) !important; }}
 
 /* Tabs */
-.stTabs [data-baseweb="tab"]           {{ font-weight:700; font-size:14px; }}
-.stTabs [data-baseweb="tab-highlight"] {{ background:linear-gradient(90deg,{BLUE},{TEAL}) !important; }}
+.stTabs [data-baseweb="tab"]{{
+    color:#334155 !important;
+    font-size:15px !important;
+    font-weight:700 !important;
+
+    background:transparent !important;
+
+    padding:8px 14px !important;
+}}
+
+.stTabs [data-baseweb="tab"]:hover{{
+    color:#0f172a !important;
+}}
+
+.stTabs [aria-selected="true"]{{
+    color:{DANGER} !important;
+}}
+
+.stTabs [data-baseweb="tab-highlight"]{{
+    background:linear-gradient(90deg,{BLUE},{TEAL}) !important;
+}}
 
 /* Animations */
 @keyframes pulse {{ 0%,100% {{ opacity:1; }} 50% {{ opacity:.35; }} }}
