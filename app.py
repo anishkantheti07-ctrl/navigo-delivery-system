@@ -179,6 +179,16 @@ div[data-baseweb="select"] svg {{
     background:linear-gradient(90deg,{BLUE},{TEAL}) !important;
 }}
 
+[data-testid="stAppViewContainer"] h1,
+[data-testid="stAppViewContainer"] h2,
+[data-testid="stAppViewContainer"] h3,
+[data-testid="stAppViewContainer"] h4,
+[data-testid="stAppViewContainer"] h5,
+[data-testid="stAppViewContainer"] p,
+[data-testid="stAppViewContainer"] label{{
+    color:#0f172a !important;
+}}
+
 /* Animations */
 @keyframes pulse {{ 0%,100% {{ opacity:1; }} 50% {{ opacity:.35; }} }}
 .pulse {{ animation:pulse 1.6s infinite; }}
