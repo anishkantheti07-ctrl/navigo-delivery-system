@@ -416,7 +416,7 @@ def page_login():
         unsafe_allow_html=True
     )
 
-    username = st.text_input("University Email")
+    username = st.text_input("Email Address")
 
     password = st.text_input(
         "Password",
