@@ -442,7 +442,7 @@ def page_signup():
 
     name = st.text_input("Full Name")
 
-    email = st.text_input("University Email")
+    email = st.text_input("Create an email address")
 
     password = st.text_input(
         "Create Password",
