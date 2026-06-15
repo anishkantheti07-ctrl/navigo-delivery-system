@@ -194,6 +194,27 @@ div[data-baseweb="select"] svg {{
 [data-testid="stMetricDeltaIcon--up"]   {{ color:{SUCCESS} !important; }}
 [data-testid="stMetricDeltaIcon--down"] {{ color:{DANGER}  !important; }}
 
+/* FAQ expanders */
+
+[data-testid="stExpander"]{{
+    background:white !important;
+    border-radius:12px !important;
+}}
+
+[data-testid="stExpander"] summary {{
+    color:#0f172a !important;
+    font-weight:700 !important;
+    font-size:16px !important;
+}}
+
+[data-testid="stExpander"] p{{
+    color:#475569 !important;
+}}
+
+[data-testid="stExpander"] svg{{
+    color:#0f172a !important;
+}}
+
 </style>
 """, unsafe_allow_html=True)
 
