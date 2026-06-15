@@ -225,16 +225,16 @@ div[data-baseweb="select"] svg {{
 /* Chat message text */
 
 [data-testid="stChatMessage"] p,
-[data-testid="stChatMessage"] div{
+[data-testid="stChatMessage"] div{{
     color:#0f172a !important;
     opacity:1 !important;
-}
+}}
 
 /* User input box */
 
-[data-testid="stChatInput"] textarea{
+[data-testid="stChatInput"] textarea{{
     color:white !important;
-}
+}}
 
 </style>
 """, unsafe_allow_html=True)
