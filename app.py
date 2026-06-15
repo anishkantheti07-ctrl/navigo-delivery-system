@@ -236,6 +236,31 @@ div[data-baseweb="select"] svg {{
     color:white !important;
 }}
 
+/* Feedback page widget labels */
+
+.stTextInput label,
+.stTextArea label,
+.stSelectbox label,
+.stSlider label,
+.stRadio label{{
+    color:#0f172a !important;
+    font-weight:700 !important;
+    opacity:1 !important;
+}}
+
+/* Streamlit generated labels */
+
+[data-testid="stWidgetLabel"]{{
+    color:#0f172a !important;
+    font-weight:700 !important;
+    opacity:1 !important;
+}}
+
+[data-testid="stWidgetLabel"] p{{
+    color:#0f172a !important;
+    opacity:1 !important;
+}}
+
 </style>
 """, unsafe_allow_html=True)
 
