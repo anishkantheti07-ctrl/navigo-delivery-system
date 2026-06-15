@@ -261,24 +261,6 @@ div[data-baseweb="select"] svg {{
     opacity:1 !important;
 }}
 
-/* Chat avatar */
-
-[data-testid="stChatMessageAvatarAssistant"]{{
-    background:#2563eb !important;   /* blue */
-    color:white !important;
-
-    border-radius:50% !important;
-}}
-
-/* User avatar */
-
-[data-testid="stChatMessageAvatarUser"]{{
-    background:#06b6d4 !important;   /* teal */
-    color:white !important;
-
-    border-radius:50% !important;
-}}
-
 </style>
 """, unsafe_allow_html=True)
 
