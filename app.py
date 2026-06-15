@@ -45,7 +45,6 @@ st.markdown(f"""
 
 /* Sidebar */
 [data-testid="stSidebar"] {{ background: linear-gradient(180deg,#071a30 0%,{NAVY} 100%) !important; }}
-[data-testid="stSidebar"] * {{ color:#e2e8f0 !important; }}
 [data-testid="stSidebar"] .stButton > button {{
     width:100%; background:transparent; border:none; text-align:left;
     padding:10px 16px; border-radius:10px; color:#e2e8f0 !important;
@@ -153,12 +152,17 @@ div[data-baseweb="select"] svg {{
 .stProgress > div > div > div > div {{ background:linear-gradient(90deg,{BLUE},{TEAL}) !important; }}
 
 /* Tabs */
+.stTabs [data-baseweb="tab-list"]{{
+    gap:12px;
+}}
+
 .stTabs [data-baseweb="tab"]{{
-    color:#334155 !important;
+    color:#475569 !important;
     font-size:15px !important;
     font-weight:700 !important;
 
     background:transparent !important;
+    border:none !important;
 
     padding:8px 14px !important;
 }}
@@ -168,7 +172,7 @@ div[data-baseweb="select"] svg {{
 }}
 
 .stTabs [aria-selected="true"]{{
-    color:{DANGER} !important;
+    color:#ef4444 !important;
 }}
 
 .stTabs [data-baseweb="tab-highlight"]{{
