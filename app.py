@@ -459,6 +459,27 @@ def page_signup():
 
 # ── PAGE: HOME ────────────────────────────────────────────────────────────────
 def page_home():
+    top1, top2 = st.columns([9,2])
+
+    with top2:
+
+        c1, c2 = st.columns(2)
+
+    with c1:
+
+        if st.button("👤 Login"):
+
+            st.session_state.page = "Login"
+
+            st.rerun()
+
+    with c2:
+
+        if st.button("✨ Sign Up"):
+
+            st.session_state.page = "Sign Up"
+
+            st.rerun()
     # Hero
     st.markdown(f"""
     <div class="hero-card">
@@ -489,23 +510,7 @@ def page_home():
     </div>
     """, unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns([8,1,1])
 
-    with col2:
-
-        if st.button("👤 Login"):
-
-            st.session_state.page = "Login"
-
-            st.rerun()
-
-    with col3:
-
-        if st.button("✨ Sign Up"):
-
-            st.session_state.page = "Sign Up"
-
-            st.rerun()
 
     # KPI row
     c1, c2, c3, c4 = st.columns(4)
