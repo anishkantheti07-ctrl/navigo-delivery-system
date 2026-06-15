@@ -6,6 +6,8 @@ Run:  streamlit run app.py
 Deps: pip install streamlit plotly
 """
 
+from turtle import color
+
 import streamlit as st
 import plotly.graph_objects as go
 import datetime, random
@@ -81,6 +83,7 @@ st.markdown(f"""
     content:''; position:absolute; bottom:-40px; left:30%;
     width:140px; height:140px; border-radius:50%;
     background:rgba(6,182,212,0.10);
+    color: white !important;
 }}
 
 .notif-card {{
@@ -177,16 +180,6 @@ div[data-baseweb="select"] svg {{
 
 .stTabs [data-baseweb="tab-highlight"]{{
     background:linear-gradient(90deg,{BLUE},{TEAL}) !important;
-}}
-
-[data-testid="stAppViewContainer"] h1,
-[data-testid="stAppViewContainer"] h2,
-[data-testid="stAppViewContainer"] h3,
-[data-testid="stAppViewContainer"] h4,
-[data-testid="stAppViewContainer"] h5,
-[data-testid="stAppViewContainer"] p,
-[data-testid="stAppViewContainer"] label{{
-    color:#0f172a !important;
 }}
 
 /* Animations */
